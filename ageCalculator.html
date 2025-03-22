@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <script type="text/javascript">
+        function checkAge() {
+            var x = document.getElementById("input").value;
+            var past = new Date(x);
+            var today = new Date();
+            var age = today - past;
+            var years = Math.floor(age / (365.25 * 24 * 60 * 60 * 1000));
+            var months = Math.floor((age % (365.25 * 24 * 60 * 60 * 1000)) / (30.44 * 24 * 60 * 60 * 1000));
+            var days = Math.floor((age % (30.44 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000));
+            var y = document.getElementById("age");
+            y.innerHTML = years + " Years, " + months + " Months, and " + days + " Days";
+        }
+    </script>
+</head>
+
+<body>
+    <input type="date" value="" id="input" />
+    <button onclick="checkAge()">Check Age</button>
+    <div>
+        Your Age is:
+        <span id="age"></span>
+    </div>
+</body>
+
+</html>
