@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        function getOtp() {
+            var otpType = document.getElementById("otps").value;
+            var characters = "";
+            var length = 0;
+
+            switch (otpType) {
+                case '4':
+                case '6':
+                case '8':
+                case '10':
+                case '12':
+                    characters = "0123456789";
+                    length = parseInt(otpType);
+                    break;
+                case 'alpha-num':
+                    characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    length = 6;
+                    break;
+                case 'alpha':
+                    characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                    length = 6;
+                    break;
+            }
+
+            var otp = generateOtp(characters, length);
+            displayOtp(otp);
+        }
+
+        function generateOtp(characters, length) {
+            var otp = "";
+
+            for (var i = 0; i < length; i++) {
+                otp += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            return otp;
+        }
+
+        function displayOtp(otp) {
+            var displayElement = document.getElementById("display");
+            displayElement.textContent = "";
+            displayElement.textContent = otp;
+        }
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to right, #7e00e5, #8e2de2, #9e5ae0, #ae87dd, #bec5da);
+        }
+
+        .otp-div {
+            border: 2px solid #a48be0;
+            background-color: #ffffff;
+            height: 250px;
+            width: 250px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateX(20deg);
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .otp-div:hover {
+            transform: perspective(1000px) rotateX(0deg);
+        }
+
+        h3 {
+            color: #a48be0;
+        }
+
+        select,
+        button {
+            margin-top: 10px;
+            padding: 8px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #a48be0;
+            color: #ffffff;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #7e00e5;
+        }
+
+        #display {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #a48be0;
+            animation: typing 1s steps(12, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: #a48be0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="otp-div">
+        <h3>OTP Generator</h3>
+        <select id="otps" name="OTP's">
+            <option value="4"> 4-digits</option>
+            <option value="6">6-digits</option>
+            <option value="8">8-digits</option>
+            <option value="10">10-digits</option>
+            <option value="12">12-digits</option>
+            <option value="alpha-num">Alpha-Numeric</option>
+            <option value="alpha">Alphabets</option>
+        </select>
+        <button onclick="getOtp()">Generate OTP</button>
+        <div>
+            <span id="display"></span>
+        </div>
+    </div>
+</body>
+
+</html>
